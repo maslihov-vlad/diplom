@@ -22,6 +22,12 @@ def index():
     return jsonify({'message': 'Hello, Maslo!'}), 200
 
 
+@app.route('/name', methods=['POST'])
+def name():
+    data = request.get_json()
+    name = data['name']
+    return jsonify({'message': f'Hello, {name}!'}), 200
+
 #Create a login endpoint that checks the user's credentials and returns a JWT:
 @app.route('/api/login', methods=['POST'])
 def login_endpoint():
