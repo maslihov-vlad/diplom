@@ -78,13 +78,10 @@ def rsi_strategy(symbol, interval, window_size, num_std_dev):
 
     # Generate signal based on RSI
     signal = pd.Series(index=rsi.index)
-
     # Long signal when RSI crosses below oversold threshold
     signal[rsi < (30 - num_std_dev)] = 'Long'
-
     # Short signal when RSI crosses above overbought threshold
     signal[rsi > (70 + num_std_dev)] = 'Short'
-
     # Return the first valid signal value (Long or Short) as the strategy signal
     if signal.isin(['Long']).any():
         return 'Long'
