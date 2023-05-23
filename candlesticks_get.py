@@ -7,7 +7,6 @@ def get_candlesticks(symbol, interval):
     Returns a list of OHLCV values.
     """
     BASE_URL = "https://api.binance.com/api/v3/"
-
     url = BASE_URL + "klines"
     params = {
         "symbol": symbol,

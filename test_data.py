@@ -2,11 +2,11 @@ import requests
 import json
 
 # Set the base URL for the API endpoints
-base_url = 'http://localhost:5000/api'
-base_url_2 = 'http://maslosos.pythonanywhere.com/api'
+base_url = 'https://diplom1.herokuapp.com/api'
+
 # Register a new user
 def register_user(login, password):
-    endpoint = f'{base_url_2}/register'
+    endpoint = f'{base_url}/register'
     data = {
         'login': login,
         'password': password
@@ -16,7 +16,7 @@ def register_user(login, password):
 
 # Login and obtain an access token
 def login_user(login, password):
-    endpoint = f'{base_url_2}/login'
+    endpoint = f'{base_url}/login'
     data = {
         'login': login,
         'password': password
@@ -30,13 +30,10 @@ def login_user(login, password):
 
 # Access protected endpoint
 def access_protected(token):
-        # Set the base URL
-    base_url = 'http://localhost:5000'
-    base_url_2 = 'http://maslosos.pythonanywhere.com/'
     # Set the headers with the JWT token
     headers = {'Authorization': f'Bearer {token}'}
     # Send the GET request to the protected endpoint
-    response = requests.get(f'{base_url_2}/api/protected', headers=headers)
+    response = requests.get(f'{base_url}/protected', headers=headers)
     # Check the response status code
     if response.status_code == 200:
         # Print the response content
@@ -46,8 +43,7 @@ def access_protected(token):
         print(response.content)
 
 def access_app(token):
-    endpoint = 'http://localhost:5000/app'
-    endpoint_2 = 'http://maslosos.pythonanywhere.com//app'
+    endpoint = 'https://diplom1.herokuapp.com/app'
     headers = {
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
@@ -58,7 +54,7 @@ def access_app(token):
             {'symbol': 'ETHUSDT', 'interval': '1h'}
         ]
     }
-    response = requests.get(endpoint_2, headers=headers, json=data)
+    response = requests.get(endpoint, headers=headers, json=data)
     print(response.status_code)
     print(response.json())
 
@@ -66,11 +62,11 @@ login = "masla"
 password = "sos"
 # Test the endpoints
 register_user(login, password)
-print('Used credentials: ', login," ", password)
+print('Used credentials:', login, password)
 token = login_user(login, password)
 print("Logged in successfully!")
-print("Login", login)
-print("Password", password)
-print("Token", token)
+print("Login:", login)
+print("Password:", password)
+print("Token:", token)
 access_protected(token)
 access_app(token)

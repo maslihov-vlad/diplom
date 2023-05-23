@@ -17,6 +17,11 @@ app.config['JWT_SECRET_KEY'] = 'secret'
 jwt = JWTManager(app)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({'message': 'Hello, World!'}), 200
+
+
 #Create a login endpoint that checks the user's credentials and returns a JWT:
 @app.route('/api/login', methods=['POST'])
 def login_endpoint():
