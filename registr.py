@@ -18,6 +18,7 @@ def register_user(login,password):
     # Hash credentials
     password_hash = hashlib.sha256(password.encode() + salt.encode()).hexdigest()
     # Check if login is already taken
+    print("Connecting to the database...")
     existing_user = collection.find_one({"login": login})
     if existing_user:
         return False

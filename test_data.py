@@ -1,8 +1,8 @@
 import requests
-from test2 import check_name
+#from test2 import check_name
 import time
 # Set the base URL for the API endpoints
-base_url = 'https://diplom1.herokuapp.com/api'
+base_url = 'https://web-production-b26f.up.railway.app/api'
 
 # Register a new user
 def register_user(login, password):
@@ -45,7 +45,7 @@ def access_protected(token):
         print(response.content)
 
 def access_app(token):
-    endpoint = 'https://diplom1.herokuapp.com/app'
+    endpoint = 'https://web-production-b26f.up.railway.app/app'
     headers = {
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
@@ -62,8 +62,6 @@ def access_app(token):
 
 login = "masla"
 password = "sos"
-check_name(login)
-time.sleep(10)
 # Test the endpoints
 register_user(login, password)
 print('Used credentials:', login, password)
