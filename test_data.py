@@ -1,74 +1,44 @@
 import requests
-#from test2 import check_name
-import time
-# Set the base URL for the API endpoints
-base_url = 'https://web-production-b26f.up.railway.app/api'
+import pymongo
 
-# Register a new user
-def register_user(login, password):
-    endpoint = f'{base_url}/register'
-    headers = {'Content-Type': 'application/json'}
-    data = {
-        'login': login,
-        'password': password
-    }
-    response = requests.post(endpoint, json=data, headers=headers)
-    print(response.json())
+# Base URL of the deployed application
+base_url = 'https://web-production-b26f.up.railway.app'
 
-# Login and obtain an access token
-def login_user(login, password):
-    endpoint = f'{base_url}/login'
-    headers = {'Content-Type': 'application/json'}
-    data = {
-        'login': login,
-        'password': password
-    }
-    response = requests.post(endpoint, json=data,headers=headers )
-    if response.status_code == 200:
-        access_token = response.json().get('access_token')
-        return access_token
-    else:
-        print(response.json())
+# MongoDB connection string
+connection_string = "mongodb+srv://maslihov22:vUEeVwpNdBz343Ti@cluster0.odsdsgy.mongodb.net/test"
 
-# Access protected endpoint
-def access_protected(token):
-    # Set the headers with the JWT token
-    headers = {'Authorization': f'Bearer {token}'}
-    # Send the GET request to the protected endpoint
-    response = requests.get(f'{base_url}/protected', headers=headers)
-    # Check the response status code
-    if response.status_code == 200:
-        # Print the response content
-        print(response.json())
-    else:
-        # Print the error message
-        print(response.content)
+# MongoDB database and collection names
+database_name = "test"
+collection_name = "users"
 
-def access_app(token):
-    endpoint = 'https://web-production-b26f.up.railway.app/app'
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
-    }
-    data = {
-        'coins': [
-            {'symbol': 'BTCUSDT', 'interval': '1h'},
-            {'symbol': 'ETHUSDT', 'interval': '1h'}
-        ]
-    }
-    response = requests.get(endpoint, headers=headers, json=data)
-    print(response.status_code)
-    print(response.json())
+# Test the /hello endpoint
+hello_url = f'{base_url}/hello'
+hello_response = requests.get(hello_url)
+if hello_response.status_code == 200:
+    hello_data = hello_response.json()
+    print(hello_data['message'])
+else:
+    print('Failed to retrieve data from /hello endpoint')
 
-login = "masla"
-password = "sos"
-# Test the endpoints
-register_user(login, password)
-print('Used credentials:', login, password)
-token = login_user(login, password)
-print("Logged in successfully!")
-print("Login:", login)
-print("Password:", password)
-print("Token:", token)
-access_protected(token)
-access_app(token)
+# Test the /name endpoint
+name_url = f'{base_url}/name'
+name_data = {'name': 'John'}
+name_response = requests.post(name_url, json=name_data)
+if name_response.status_code == 200:
+    name_data = name_response.json()
+    print(name_data['message'])
+else:
+    print('Failed to retrieve data from /name endpoint')
+
+# Add user to MongoDB
+client = pymongo.MongoClient(connection_string)
+db = client[database_name]
+collection = db[collection_name]
+
+user = {
+    'login': 'maslo',
+    'password': 'john'
+}
+collection.insert_one(user)
+
+print('User added to the database.')

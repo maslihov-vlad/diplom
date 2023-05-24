@@ -19,8 +19,8 @@ def register_user(login, password):
         print(response.text)
 
 # Provide the username and password for registration
-login = 'example_user'
-password = 'example_password'
+login = 'maslo'
+password = 'sos'
 
 # Test the registration endpoint
 register_user(login, password)
