@@ -8,8 +8,8 @@ salt = "universityUTM"
 client = MongoClient('mongodb+srv://maslihov22:vUEeVwpNdBz343Ti@cluster0.odsdsgy.mongodb.net/')
 
 # Access the database and collection
-db = client['app']
-collection = db['registration']
+db = client['test']
+collection = db['users']
 
 
 def login_user(login, password):
@@ -17,7 +17,7 @@ def login_user(login, password):
     # Hash credentials
     password_hash = hashlib.sha256(password.encode() + salt.encode()).hexdigest()
     # Check if user is registered
-    user = collection.find_one({"login": login, "password": password})
+    user = collection.find_one({"login": login, "password": password_hash})
     if user:
         print("Welcome to the app!")
         return True

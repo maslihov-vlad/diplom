@@ -8,8 +8,8 @@ salt = "universityUTM"
 client = MongoClient('mongodb+srv://maslihov22:vUEeVwpNdBz343Ti@cluster0.odsdsgy.mongodb.net/')
 
 # Access the database and collection
-db = client['app']
-collection = db['registration']
+db = client['test']
+collection = db['users']
 
 
 # Create a function to handle user registration
