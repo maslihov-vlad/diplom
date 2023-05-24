@@ -5,7 +5,7 @@ import hashlib
 salt = "universityUTM"
 
 # Connect to the MongoDB server
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://maslihov22:vUEeVwpNdBz343Ti@cluster0.odsdsgy.mongodb.net/')
 
 # Access the database and collection
 db = client['app']

@@ -1,27 +1,29 @@
 import requests
-import json
-
+from test2 import check_name
+import time
 # Set the base URL for the API endpoints
 base_url = 'https://diplom1.herokuapp.com/api'
 
 # Register a new user
 def register_user(login, password):
     endpoint = f'{base_url}/register'
+    headers = {'Content-Type': 'application/json'}
     data = {
         'login': login,
         'password': password
     }
-    response = requests.post(endpoint, json=data)
+    response = requests.post(endpoint, json=data, headers=headers)
     print(response.json())
 
 # Login and obtain an access token
 def login_user(login, password):
     endpoint = f'{base_url}/login'
+    headers = {'Content-Type': 'application/json'}
     data = {
         'login': login,
         'password': password
     }
-    response = requests.post(endpoint, json=data)
+    response = requests.post(endpoint, json=data,headers=headers )
     if response.status_code == 200:
         access_token = response.json().get('access_token')
         return access_token
@@ -60,6 +62,8 @@ def access_app(token):
 
 login = "masla"
 password = "sos"
+check_name(login)
+time.sleep(10)
 # Test the endpoints
 register_user(login, password)
 print('Used credentials:', login, password)
