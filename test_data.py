@@ -1,11 +1,8 @@
 import requests
-import pymongo
 
 # Base URL of the deployed application
 base_url = 'https://web-production-b26f.up.railway.app'
 
-# MongoDB connection string
-connection_string = "mongodb+srv://maslihov22:vUEeVwpNdBz343Ti@cluster0.odsdsgy.mongodb.net/test"
 
 # MongoDB database and collection names
 database_name = "test"
@@ -30,15 +27,6 @@ if name_response.status_code == 200:
 else:
     print('Failed to retrieve data from /name endpoint')
 
-# Add user to MongoDB
-client = pymongo.MongoClient(connection_string)
-db = client[database_name]
-collection = db[collection_name]
 
-user = {
-    'login': 'maslo',
-    'password': 'john'
-}
-collection.insert_one(user)
 
 print('User added to the database.')

@@ -49,7 +49,7 @@ def register_endpoint():
     data = request.get_json()
     login = data['login']
     password = data['password']
-    register_user(login, password)
+    register_user()
     return jsonify({'message': 'User registered successfully!'}), 200
 
 
